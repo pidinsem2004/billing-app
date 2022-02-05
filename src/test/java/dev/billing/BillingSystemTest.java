@@ -198,4 +198,34 @@ public class BillingSystemTest {
         if (price.getPrice()==0)
             throw new RuntimeException("invade pricing rule ");
     }
+
+    /**
+     * Test case 7
+     * In the pricing rule,  price should be not positive value
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void priceIsNegativeThrowException() {
+        exception.expect(RuntimeException.class);
+        Price price= new Price();
+        price.setZoneFrom(zoneList.get(0));
+        price.setZoneTo(zoneList.get(0));
+        price.setPrice(-10);
+        priceIsNegativeThrowExceptionImpl(price);
+
+
+    }
+    /**
+     * Implementation of the Test case 6
+     * In the pricing rule,  price should be not positive value
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void priceIsNegativeThrowExceptionImpl(Price price) {
+        if (price.getPrice() < 0)
+            throw new RuntimeException("invade price in the rule ");
+    }
 }
