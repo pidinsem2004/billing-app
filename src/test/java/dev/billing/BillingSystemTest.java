@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.rules.ExpectedException;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -256,6 +257,33 @@ public class BillingSystemTest {
     public void inputFileExtensionNotTxtThrowExceptionImpl(String fileName ) {
          Assertions.assertEquals(true ,fileName.endsWith(".txt"));
     }
+
+
+    /**
+     * Test case 9
+     * Input file should exist,  if not throw an exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void inputFileNotExistThrowException() {
+        Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
+        inputFileNotExistThrowExceptionImpl(p);
+
+
+    }
+    /**
+     * Implementation of the Test case 9
+     * Input file should exist,  if not throw an exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void inputFileNotExistThrowExceptionImpl(Path p ) {
+        Assertions.assertEquals(true , Files.exists(p));
+    }
+
 
 
 }
