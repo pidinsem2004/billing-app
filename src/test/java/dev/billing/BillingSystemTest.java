@@ -314,5 +314,35 @@ public class BillingSystemTest {
     }
 
 
+    /**
+     * Test case 11
+     * If the customerId is not defined or is not exist, throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void customerIdIsNotExistThrowException() {
+        //exception.expect(RuntimeException.class);
+        customerIdIsNotExistThrowExceptionImpl(10);
+
+
+    }
+    /**
+     * Implementation of the Test case 11
+     * If the customerId is not defined or is not exist, throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void customerIdIsNotExistThrowExceptionImpl(int customerId) {
+
+       Assertions.assertEquals(0,
+               customerList.stream()
+                       .filter(s -> s.getId()==customerId).count());
+    }
+
+
+
 
 }
