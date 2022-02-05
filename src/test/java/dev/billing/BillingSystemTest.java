@@ -142,4 +142,32 @@ public class BillingSystemTest {
          if (price.getZoneFrom()==null)
             throw new RuntimeException("invade pricing rule ");
     }
+    /**
+     * Test case 5
+     * In the pricing zoneTo should be defined and exist, if not throw an exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void zoneToNotDefinedInTheJourneyThrowException() {
+        exception.expect(RuntimeException.class);
+        Price price= new Price();
+        price.setPrice(priceList.get(0).getPrice());
+        price.setZoneFrom(zoneList.get(0));
+        zoneToNotDefinedInTheJourneyThrowExceptionImpl(price);
+
+
+    }
+    /**
+     * Implementation of the Test case 1
+     * In the pricing zoneTo should be defined and exist, if not throw an exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void zoneToNotDefinedInTheJourneyThrowExceptionImpl(Price price) {
+        if (price.getZoneTo()==null)
+            throw new RuntimeException("invade pricing rule ");
+    }
 }
