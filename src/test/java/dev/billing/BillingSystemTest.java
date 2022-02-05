@@ -59,4 +59,31 @@ public class BillingSystemTest {
         if (zone.getName() == "" || zone.getName()==null)
             throw new RuntimeException("Ivalid zone name");
     }
+    /**
+     * Test case 2
+     * zone name is unique , otherwise throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void theZoneNameIsNotUniqueThrowException() {
+        exception.expect(RuntimeException.class);
+        Zone zone1= new Zone(5, "zone1");
+        Zone zone2 = new Zone(6, "zone1");
+        theZoneNameIsNotUniqueThrowExceptionImpl(zone1, zone2);
+
+
+    }
+    /**
+     * Implementation of the Test case 1
+     * zone name is unique , otherwise throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void theZoneNameIsNotUniqueThrowExceptionImpl(Zone zone1, Zone zone2) {
+         if (zone1.getName().equalsIgnoreCase(zone2.getName()))
+            throw new RuntimeException("zone name must be unique");
+    }
 }
