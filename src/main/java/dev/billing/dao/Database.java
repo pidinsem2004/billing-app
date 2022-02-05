@@ -102,6 +102,10 @@ public class Database {
         priceList.add(new Price(zone4,zone1,300));
         priceList.add(new Price(zone4,zone2,300));
 
+        //Adding Journey
+        journeyList.add(new Journey(0, customerList.get(0).getId(), A.getName()));
+        journeyList.add(new Journey(-10, customerList.get(0).getId(), A.getName()));
+
     }
 
     public List<Zone> getZoneList() {
@@ -123,4 +127,6 @@ public class Database {
     public List<Journey> getJourneyList() {
         return journeyList;
     }
+
+
 }

@@ -263,7 +263,7 @@ public class BillingSystemTest {
      * Test case 9
      * Input file should exist,  if not throw an exception
      *
-     * @throws RuntimeException
+     *
      *
      */
     @Test
@@ -277,11 +277,40 @@ public class BillingSystemTest {
      * Implementation of the Test case 9
      * Input file should exist,  if not throw an exception
      *
-     * @throws RuntimeException
+     *
      *
      */
     public void inputFileNotExistThrowExceptionImpl(Path p ) {
         Assertions.assertEquals(true , Files.exists(p));
+    }
+
+
+
+    /**
+     * Test case 10
+     * If the unixTimestamp in the imput file is not defined, throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void unixTimestampIsNegativeOrEqualsToZeroThrowException() {
+        exception.expect(RuntimeException.class);
+        unixTimestampIsNegativeOrEqualsToZeroThrowExceptionImpl(journeyList.get(0));
+
+
+    }
+    /**
+     * Implementation of the Test case 10
+     * If the unixTimestamp in the imput file is not defined, throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void unixTimestampIsNegativeOrEqualsToZeroThrowExceptionImpl(Journey journey) {
+        //Assertions.assertEquals(0 , journey.getUnixTimestamp());
+        if(journey.getUnixTimestamp()==0)
+            throw new RuntimeException("Invalid UnixTimestamp ");
     }
 
 
