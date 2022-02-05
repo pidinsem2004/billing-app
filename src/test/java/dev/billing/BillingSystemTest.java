@@ -76,7 +76,7 @@ public class BillingSystemTest {
 
     }
     /**
-     * Implementation of the Test case 1
+     * Implementation of the Test case 2
      * zone name is unique , otherwise throw exception
      *
      * @throws RuntimeException
@@ -103,7 +103,7 @@ public class BillingSystemTest {
 
     }
     /**
-     * Implementation of the Test case 1
+     * Implementation of the Test case 3
      * Zone contains at least one station, otherwise throw exception
      *
      * @throws RuntimeException
@@ -132,7 +132,7 @@ public class BillingSystemTest {
 
     }
     /**
-     * Implementation of the Test case 1
+     * Implementation of the Test case 4
      * In the pricing zoneFrom should be defined exist, if not throw an exception
      *
      * @throws RuntimeException
@@ -160,7 +160,7 @@ public class BillingSystemTest {
 
     }
     /**
-     * Implementation of the Test case 1
+     * Implementation of the Test case 5
      * In the pricing zoneTo should be defined and exist, if not throw an exception
      *
      * @throws RuntimeException
@@ -168,6 +168,34 @@ public class BillingSystemTest {
      */
     public void zoneToNotDefinedInTheJourneyThrowExceptionImpl(Price price) {
         if (price.getZoneTo()==null)
+            throw new RuntimeException("invade pricing rule ");
+    }
+    /**
+     * Test case 6
+     * In the pricing rule,  price should be not null and not equal to 0
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void priceIsNullOrZeroThrowException() {
+        exception.expect(RuntimeException.class);
+        Price price= new Price();
+        price.setZoneFrom(zoneList.get(0));
+        price.setZoneTo(zoneList.get(0));
+        priceIsNullOrZeroThrowExceptionImpl(price);
+
+
+    }
+    /**
+     * Implementation of the Test case 6
+     * In the pricing rule,  price should be not null and not equal to 0
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void priceIsNullOrZeroThrowExceptionImpl(Price price) {
+        if (price.getPrice()==0)
             throw new RuntimeException("invade pricing rule ");
     }
 }
