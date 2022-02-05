@@ -5,8 +5,11 @@ import dev.billing.entities.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.rules.ExpectedException;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -228,4 +231,31 @@ public class BillingSystemTest {
         if (price.getPrice() < 0)
             throw new RuntimeException("invade price in the rule ");
     }
+
+    /**
+     * Test case 8
+     * Input file should be a txt file,  if not throw an exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void inputFileExtensionNotTxtThrowException() {
+         Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
+        inputFileExtensionNotTxtThrowExceptionImpl(p.getFileName().toString().trim());
+
+
+    }
+    /**
+     * Implementation of the Test case 8
+     * Input file should be a txt file,  if not throw an exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void inputFileExtensionNotTxtThrowExceptionImpl(String fileName ) {
+         Assertions.assertEquals(true ,fileName.endsWith(".txt"));
+    }
+
+
 }

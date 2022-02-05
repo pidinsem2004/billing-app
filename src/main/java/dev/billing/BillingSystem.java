@@ -22,6 +22,7 @@ public class BillingSystem {
         System.out.println("si c'est un fichier et non un dossier: " + Files.isRegularFile(p));
         System.out.println("le fichier peut être accéder en lecture  : " + Files.isReadable(p));*/
 
+
         //read file into stream, try-with-resources
         try {
 
