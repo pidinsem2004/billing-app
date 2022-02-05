@@ -86,4 +86,31 @@ public class BillingSystemTest {
          if (zone1.getName().equalsIgnoreCase(zone2.getName()))
             throw new RuntimeException("zone name must be unique");
     }
+
+    /**
+     * Test case 3
+     * Zone contains at least one station , otherwise throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void zoneWithoutStationThrowException() {
+        exception.expect(RuntimeException.class);
+        Zone zone1= new Zone(5, "zone1");
+       zoneWithoutStationThrowExceptionImpl(zone1);
+
+
+    }
+    /**
+     * Implementation of the Test case 1
+     * Zone contains at least one station, otherwise throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void zoneWithoutStationThrowExceptionImpl(Zone zone) {
+       if (zone.getStations()==null || zone.getStations().size()==0)
+            throw new RuntimeException("zone must contains station");
+    }
 }
