@@ -113,4 +113,33 @@ public class BillingSystemTest {
        if (zone.getStations()==null || zone.getStations().size()==0)
             throw new RuntimeException("zone must contains station");
     }
+
+    /**
+     * Test case 4
+     * In the pricing zoneFrom should be defined exist, if not throw an exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void zoneFromNotDefinedInTheJourneyThrowException() {
+        exception.expect(RuntimeException.class);
+        Price price= new Price();
+        price.setPrice(priceList.get(0).getPrice());
+        price.setZoneTo(zoneList.get(0));
+        zoneFromNotDefinedInTheJourneyThrowExceptionImpl(price);
+
+
+    }
+    /**
+     * Implementation of the Test case 1
+     * In the pricing zoneFrom should be defined exist, if not throw an exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void zoneFromNotDefinedInTheJourneyThrowExceptionImpl(Price price) {
+         if (price.getZoneFrom()==null)
+            throw new RuntimeException("invade pricing rule ");
+    }
 }
