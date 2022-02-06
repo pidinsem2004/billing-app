@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BillingSystemTest {
     @Rule
@@ -342,7 +343,30 @@ public class BillingSystemTest {
                        .filter(s -> s.getId()==customerId).count());
     }
 
+    /**
+     * Test case 12
+     * If the station is not defined or is not exist , throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    @Test
+    public void stationIsNotExistThrowException() {
+        exception.expect(RuntimeException.class);
+        stationIsNotExistThrowExceptionImpl("Z");
 
 
+    }
+    /**
+     * Implementation of the Test case 12
+     * If the station is not defined or is not exist , throw exception
+     *
+     * @throws RuntimeException
+     *
+     */
+    public void stationIsNotExistThrowExceptionImpl(String stationName) {
 
+      if (stationList.stream().filter(s->s.getName().equalsIgnoreCase(stationName)).collect(Collectors.toList()).size()==0)
+          throw  new RuntimeException("Station not defined");
+    }
 }
