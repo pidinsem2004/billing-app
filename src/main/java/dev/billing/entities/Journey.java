@@ -42,7 +42,7 @@ public class Journey {
 
     @Override
     public String toString() {
-        return "Trip{" +
+        return "Journey{" +
                 "unixTimestamp=" + unixTimestamp +
                 ", customerId=" + customerId +
                 ", station=" + stationName +

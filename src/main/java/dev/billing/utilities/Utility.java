@@ -13,6 +13,10 @@ import java.util.function.Predicate;
  */
 public abstract class Utility {
 
+
+   public  static  final String INPUTFILENAME = ".\\src\\main\\resources\\CandidateInputExample.txt";
+   public  static  final String OUTPUTFILENAME = ".\\src\\main\\resources\\CandidateOutputExample.txt";
+
     /*
      * predicat pour filtrer les duplicités selon le critère de la clé
      */
@@ -21,4 +25,6 @@ public abstract class Utility {
         Map<Object, Boolean> uniqueMap = new ConcurrentHashMap<>();
         return t -> uniqueMap.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
+
+
 }

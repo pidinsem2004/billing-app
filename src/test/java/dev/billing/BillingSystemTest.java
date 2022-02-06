@@ -52,8 +52,6 @@ public class BillingSystemTest {
         exception.expect(RuntimeException.class);
         Zone Zone = new Zone(5, "");
         theZoneNameIsNullOrEmptyThrowExceptionImpl(Zone);
-
-
     }
 
     /**
@@ -196,7 +194,7 @@ public class BillingSystemTest {
 
     /**
      * Test case 7
-     * In the pricing rule,  price should be not positive value
+     * In the pricing rule,  price should be a positive value
      *
      * @throws RuntimeException
      */
@@ -211,8 +209,8 @@ public class BillingSystemTest {
     }
 
     /**
-     * Implementation of the Test case 6
-     * In the pricing rule,  price should be not positive value
+     * Implementation of the Test case 7
+     * In the pricing rule,  price should be a positive value
      *
      * @throws RuntimeException
      */
@@ -229,7 +227,7 @@ public class BillingSystemTest {
      */
     @Test
     public void inputFileExtensionNotTxtThrowException() {
-        Path p = Paths.get("D:\\Personnel\\Ingeniance\\Entretien\\Celine\\CandidateInputExample.txt");
+        Path p = Paths.get(Utility.INPUTFILENAME);
         inputFileExtensionNotTxtThrowExceptionImpl(p.getFileName().toString().trim());
     }
 
@@ -250,7 +248,7 @@ public class BillingSystemTest {
      */
     @Test
     public void inputFileNotExistThrowException() {
-        Path p = Paths.get("D:\\Personnel\\Ingeniance\\Entretien\\Celine\\CandidateInputExample.txt");
+        Path p = Paths.get(Utility.INPUTFILENAME);
         inputFileNotExistThrowExceptionImpl(p);
     }
 
@@ -349,7 +347,7 @@ public class BillingSystemTest {
     @Test
     public void fileDataIsInvalidThrowException() {
 
-        Path p = Paths.get("D:\\Personnel\\Ingeniance\\Entretien\\Celine\\CandidateInputExample.txt");
+        Path p = Paths.get(Utility.INPUTFILENAME);
         try (Stream<String> fileStream = Files.lines(p)) {
 
             List<String> tripInformationsFromFile = fileStream.filter(a ->
@@ -386,7 +384,7 @@ public class BillingSystemTest {
     @Test
     public void inputTapWithoutOutputTapThrowException() {
 
-        Path p = Paths.get("D:\\Personnel\\Ingeniance\\Entretien\\Celine\\CandidateInputExample.txt");
+        Path p = Paths.get(Utility.INPUTFILENAME);
         try (Stream<String> fileStream = Files.lines(p)) {
 
             List<String> tripInformationsFromFile = fileStream.filter(a ->
