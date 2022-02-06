@@ -2,6 +2,7 @@ package dev.billing;
 
 import dev.billing.dao.Database;
 import dev.billing.entities.*;
+import dev.billing.utilities.Utility;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -77,8 +79,6 @@ public class BillingSystemTest {
         Zone zone1 = new Zone(5, "zone1");
         Zone zone2 = new Zone(6, "zone1");
         theZoneNameIsNotUniqueThrowExceptionImpl(zone1, zone2);
-
-
     }
 
     /**
@@ -103,8 +103,6 @@ public class BillingSystemTest {
         exception.expect(RuntimeException.class);
         Zone zone1 = new Zone(5, "zone1");
         zoneWithoutStationThrowExceptionImpl(zone1);
-
-
     }
 
     /**
@@ -131,8 +129,6 @@ public class BillingSystemTest {
         price.setPrice(priceList.get(0).getPrice());
         price.setZoneTo(zoneList.get(0));
         zoneFromNotDefinedInTheJourneyThrowExceptionImpl(price);
-
-
     }
 
     /**
@@ -159,8 +155,6 @@ public class BillingSystemTest {
         price.setPrice(priceList.get(0).getPrice());
         price.setZoneFrom(zoneList.get(0));
         zoneToNotDefinedInTheJourneyThrowExceptionImpl(price);
-
-
     }
 
     /**
@@ -187,8 +181,6 @@ public class BillingSystemTest {
         price.setZoneFrom(zoneList.get(0));
         price.setZoneTo(zoneList.get(0));
         priceIsNullOrZeroThrowExceptionImpl(price);
-
-
     }
 
     /**
@@ -216,8 +208,6 @@ public class BillingSystemTest {
         price.setZoneTo(zoneList.get(0));
         price.setPrice(-10);
         priceIsNegativeThrowExceptionImpl(price);
-
-
     }
 
     /**
@@ -241,8 +231,6 @@ public class BillingSystemTest {
     public void inputFileExtensionNotTxtThrowException() {
         Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
         inputFileExtensionNotTxtThrowExceptionImpl(p.getFileName().toString().trim());
-
-
     }
 
     /**
@@ -264,8 +252,6 @@ public class BillingSystemTest {
     public void inputFileNotExistThrowException() {
         Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
         inputFileNotExistThrowExceptionImpl(p);
-
-
     }
 
     /**
@@ -287,8 +273,6 @@ public class BillingSystemTest {
     public void unixTimestampIsNegativeOrEqualsToZeroThrowException() {
         exception.expect(RuntimeException.class);
         unixTimestampIsNegativeOrEqualsToZeroThrowExceptionImpl(journeyList.get(0));
-
-
     }
 
     /**
@@ -314,8 +298,6 @@ public class BillingSystemTest {
     public void customerIdIsNotExistThrowException() {
         //exception.expect(RuntimeException.class);
         customerIdIsNotExistThrowExceptionImpl(10);
-
-
     }
 
     /**
@@ -395,4 +377,83 @@ public class BillingSystemTest {
         Assertions.assertEquals(true, unixTimestampNumber == customerIdNumber && customerIdNumber == stationNumber);
     }
 
+    /**
+     * Test case 14
+     * Any input tap should correspond to an output tap
+     *
+     * @throws RuntimeException
+     */
+    @Test
+    public void inputTapWithoutOutputTapThrowException() {
+
+        Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
+        try (Stream<String> fileStream = Files.lines(p)) {
+
+            List<String> tripInformationsFromFile = fileStream.filter(a ->
+                    a.contains("unixTimestamp") ||
+                            a.contains("customerId") ||
+                            a.contains("station")).collect(Collectors.toList());
+
+            //preparing the collection of trips from Data coming to file
+            int index = 0;
+            Journey aJourney;
+            String[] lineData = new String[2];
+            String line;
+            List<Journey> tripList = new ArrayList<Journey>();
+
+            while (index < tripInformationsFromFile.size()) {
+                aJourney = new Journey();
+
+                //get information from the line index %3 and split it
+                lineData = tripInformationsFromFile.get(index++).toString().replaceAll(",", "")
+                        .replaceAll(" ", "").replaceAll("\"", "").split(":");
+                aJourney.setUnixTimestamp(Integer.parseInt(lineData[1]));
+
+                //get information from the line index%3
+                lineData = tripInformationsFromFile.get(index++).toString().replaceAll(",", "")
+                        .replaceAll(" ", "").replaceAll("\"", "").split(":");
+                aJourney.setCustomerId(Integer.parseInt(lineData[1]));
+
+
+                //get information from the line index%3
+                lineData = tripInformationsFromFile.get(index++).toString().replaceAll(",", "")
+                        .replaceAll(" ", "").replaceAll("\"", "").split(":");
+
+                aJourney.setStationName(lineData[1]);
+
+                tripList.add(aJourney);
+            }
+
+            inputTapWithoutOutputTapThrowExceptionImpl(tripList);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Implementation of the Test case 14
+     * Any input tap should correspond to an output tap
+     *
+     * @throws RuntimeException
+     */
+    private void inputTapWithoutOutputTapThrowExceptionImpl(List<Journey> tripList) {
+
+        List<Integer> result = new ArrayList<Integer>();
+        // Extract customerId list information from journey
+        List<Journey> distinct_journey = tripList.stream()
+                .filter(Utility.distinctByKey(journey -> journey.getCustomerId())).collect(Collectors.toList());
+
+        distinct_journey.forEach(o -> {
+            //Current customer Journey list
+            List<Journey> uniqueCustomerJourneyList = tripList.stream()
+                    .filter(journey -> journey.getCustomerId() == o.getCustomerId())
+                    .sorted(Comparator.comparing(Journey::getUnixTimestamp))
+                    .collect(Collectors.toList());
+            if (uniqueCustomerJourneyList.size() % 2 != 0) {
+                result.add(1);
+            }
+        });
+        Assertions.assertEquals(true, !result.contains(1));
+    }
 }
