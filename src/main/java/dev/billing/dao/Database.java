@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
-    private List<Zone> zoneList = new ArrayList<Zone>();
-    private List<Customer> customerList = new ArrayList<Customer>();
-    private List<Price> priceList = new ArrayList<Price>();
-    private List<Station> stationList = new ArrayList<Station>();
-    private List<Journey> journeyList = new ArrayList<Journey>();
+    private List<Zone> zoneList = new ArrayList<>();
+    private List<Customer> customerList = new ArrayList<>();
+    private List<Price> priceList = new ArrayList<>();
+    private List<Station> stationList = new ArrayList<>();
+    private List<Journey> journeyList = new ArrayList<>();
 
     public Database() {
         buildData();

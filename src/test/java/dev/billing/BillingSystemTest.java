@@ -229,7 +229,7 @@ public class BillingSystemTest {
      */
     @Test
     public void inputFileExtensionNotTxtThrowException() {
-        Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
+        Path p = Paths.get("D:\\Personnel\\Ingeniance\\Entretien\\Celine\\CandidateInputExample.txt");
         inputFileExtensionNotTxtThrowExceptionImpl(p.getFileName().toString().trim());
     }
 
@@ -250,7 +250,7 @@ public class BillingSystemTest {
      */
     @Test
     public void inputFileNotExistThrowException() {
-        Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
+        Path p = Paths.get("D:\\Personnel\\Ingeniance\\Entretien\\Celine\\CandidateInputExample.txt");
         inputFileNotExistThrowExceptionImpl(p);
     }
 
@@ -349,7 +349,7 @@ public class BillingSystemTest {
     @Test
     public void fileDataIsInvalidThrowException() {
 
-        Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
+        Path p = Paths.get("D:\\Personnel\\Ingeniance\\Entretien\\Celine\\CandidateInputExample.txt");
         try (Stream<String> fileStream = Files.lines(p)) {
 
             List<String> tripInformationsFromFile = fileStream.filter(a ->
@@ -386,7 +386,7 @@ public class BillingSystemTest {
     @Test
     public void inputTapWithoutOutputTapThrowException() {
 
-        Path p = Paths.get("D:\\Personnel\\Ingéniance\\Entretien\\Céline\\CandidateInputExample.txt");
+        Path p = Paths.get("D:\\Personnel\\Ingeniance\\Entretien\\Celine\\CandidateInputExample.txt");
         try (Stream<String> fileStream = Files.lines(p)) {
 
             List<String> tripInformationsFromFile = fileStream.filter(a ->
