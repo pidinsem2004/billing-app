@@ -45,6 +45,28 @@ public class BillingSystem {
         if (!inputFileExtensionNotTxtThrowExceptionImpl(p.getFileName().toString().trim()))
             throw new RuntimeException("input File is not a txt file ");
 
+        /**
+         * Test case 13
+         * In the journey file each "unixTimestamp"  should correspond to  "customerId" and the "station"
+         * otherwise, invalid file data
+         *
+         * @throws RuntimeException
+         */
+        try (Stream<String> fileStream = Files.lines(p)) {
+
+            List<String> tripInformationsFromFile = fileStream.filter(a ->
+                    a.contains("unixTimestamp") ||
+                            a.contains("customerId") ||
+                            a.contains("station")).collect(Collectors.toList());
+            tripInformationsFromFile.stream().forEach(System.out::println);
+
+                if(!fileDataIsInvalidThrowExceptionImpl(tripInformationsFromFile))
+                    throw new RuntimeException("Invalid file data");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         List<Journey> journeyList = retrieveJourneyInformationFromFile(Utility.INPUTFILENAME);
 
 
@@ -78,25 +100,35 @@ public class BillingSystem {
             throw new RuntimeException("There is an incorrect station");
 
         /**
-         * Test case 13
-         * In the journey file each "unixTimestamp"  should correspond to  "customerId" and the "station"
-         * otherwise, invalid file data
+         * Implementation of the Test case 14
+         * Any input tap should correspond to an output tap
          *
          * @throws RuntimeException
          */
-           /*try (Stream<String> fileStream = Files.lines(p)) {
 
-                List<String> tripInformationsFromFile = fileStream.filter(a ->
-                        a.contains("unixTimestamp") ||
-                                a.contains("customerId") ||
-                                a.contains("station")).collect(Collectors.toList());
+           if(inputTapWithoutOutputTapThrowExceptionImpl(journeyList))
+               throw new RuntimeException("There is an input tap without an output tap in the input file");
+           }
 
-                if(!fileDataIsInvalidThrowExceptionImpl(tripInformationsFromFile))
-                    throw new RuntimeException("Invalid file data");
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
+    private static  boolean inputTapWithoutOutputTapThrowExceptionImpl(List<Journey> tripList) {
+
+        List<Integer> result = new ArrayList<Integer>();
+        // Extract customerId list information from journey
+        List<Journey> distinct_journey = tripList.stream()
+                .filter(Utility.distinctByKey(journey -> journey.getCustomerId())).collect(Collectors.toList());
+
+        distinct_journey.forEach(o -> {
+            //Current customer Journey list
+           int  uniqueCustomerJourneyList = tripList.stream()
+                    .filter(journey -> journey.getCustomerId() == o.getCustomerId())
+                    .sorted(Comparator.comparing(Journey::getUnixTimestamp))
+                    .collect(Collectors.toList()).size();
+            if (uniqueCustomerJourneyList % 2 != 0) {
+                result.add(1);
+            }
+        });
+        return result.contains(1);
     }
 
     public static boolean  fileDataIsInvalidThrowExceptionImpl(List<String> tripInformationsFromFile) {
