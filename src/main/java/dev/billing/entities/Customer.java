@@ -8,8 +8,6 @@ public class Customer {
 
     public Customer(int id) {
         this.id = id;
-
-
     }
 
     public int getId() {
@@ -19,7 +17,6 @@ public class Customer {
     public void setId(int id) {
         this.id = id;
     }
-
 
     @Override
     public String toString() {

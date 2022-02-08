@@ -1,27 +1,20 @@
 package dev.billing;
-
 import dev.billing.dao.Database;
 import dev.billing.entities.*;
 import dev.billing.utilities.Utility;
-
 import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class BillingSystem {
     private BufferedWriter writer;
 
     public static void main(String... args) {
-        //local variable
-        args = new String[2];
-        args[0] = Utility.INPUTFILENAME;
-        args[1] = Utility.OUTPUTFILENAME;
+        Utility.INPUTFILENAME = args[0];
+        Utility.OUTPUTFILENAME = args[1];
+
         Path p = Paths.get(Utility.INPUTFILENAME);
 
         //Init the Database
@@ -100,5 +93,6 @@ public class BillingSystem {
 
         //the File is Ok, let's run the billing System
         Utility.runBillingSystem(journeyList);
+
     }
 }

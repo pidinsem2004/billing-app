@@ -2,7 +2,6 @@ package dev.billing.utilities;
 
 import dev.billing.dao.Database;
 import dev.billing.entities.*;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -28,8 +27,8 @@ import java.util.stream.Stream;
 public abstract class Utility {
 
 
-   public  static  final String INPUTFILENAME = ".\\src\\main\\resources\\CandidateInputExample.txt";
-   public  static  final String OUTPUTFILENAME = ".\\src\\main\\resources\\CandidateOutputExample.txt";
+   public  static   String INPUTFILENAME = ".\\src\\main\\resources\\CandidateInputExample.txt";
+   public  static   String OUTPUTFILENAME = ".\\src\\main\\resources\\CandidateOutputExample.txt";
 
     /**
      * predicate to filter the duplicate value
@@ -72,11 +71,10 @@ public abstract class Utility {
             int unixTimestampStart = 0;
             String stationNameStart = "", stationNameEnd = "";
             double totalCostInCents = 0;
-            double costInCents = 0;
-            List<Zone> zoneFromList= new ArrayList<>() ;
-            List<Zone> zoneToList= new ArrayList<>() ;
-            Price thePrice  = new Price();
-
+            double costInCents ;
+            List<Zone> zoneFromList;
+            List<Zone> zoneToList ;
+            Price thePrice;
             boolean isPrinted = false;
 
             while (i < currentCustomerJourneyList.size()) {
@@ -145,7 +143,9 @@ public abstract class Utility {
             tripList.addAll(tripFooterList);tripFooterList.clear();
 
         }
+        tripList.add("}");
         writeInTheOutputFile(tripList, Utility.OUTPUTFILENAME);
+        System.out.println("Output file Generated Successfully");
     }
 
     public static boolean isValidData(List<Journey> journeyList) {
@@ -256,7 +256,7 @@ public abstract class Utility {
                     a.contains("unixTimestamp") ||
                             a.contains("customerId") ||
                             a.contains("station")).collect(Collectors.toList());
-            tripInformationFromFile.stream().forEach(System.out::println);
+
 
 
              unixTimestampNumber = tripInformationFromFile.stream().filter(a -> a.contains("unixTimestamp")).collect(Collectors.toList()).size();
@@ -392,7 +392,7 @@ public abstract class Utility {
         try {
             Path path = Paths.get(fileName);
             BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("UTF-8"));
-            System.out.println("size =" + tripList.size());
+
 
             for (int i = 0; i < tripList.size(); i++)
                 writer.write(tripList.get(i));
@@ -427,6 +427,8 @@ public abstract class Utility {
                 }
             }
         }
+
+
         return  s_price;
     }
 }

@@ -8,7 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.rules.ExpectedException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -53,7 +52,6 @@ public class BillingSystemTest {
         Zone Zone = new Zone();
         theZoneNameIsNullOrEmptyThrowExceptionImpl(Zone);
     }
-
     /**
      * Implementation of the Test case 1
      * If zone name is null or empty, throw exception
@@ -64,7 +62,6 @@ public class BillingSystemTest {
         if (zone.getId()==0)
             throw new RuntimeException("Ivalid zone id");
     }
-
     /**
      * Test case 2
      * zone id is unique , otherwise throw exception
@@ -78,7 +75,6 @@ public class BillingSystemTest {
         Zone zone2 = new Zone(6);
         theZoneNameIsNotUniqueThrowExceptionImpl(zone1, zone2);
     }
-
     /**
      * Implementation of the Test case 2
      * zone name is unique , otherwise throw exception
@@ -89,7 +85,6 @@ public class BillingSystemTest {
         if (zone1.getId() == zone2.getId())
             throw new RuntimeException("zone name must be unique");
     }
-
     /**
      * Test case 3
      * Zone contains at least one station , otherwise throw exception
