@@ -1,20 +1,14 @@
 package dev.billing.entities;
 
-import java.util.Date;
-import java.util.stream.Stream;
-
 public class Customer {
-    private int id ;
-    private String name;
-
-
+    private int id;
 
     public Customer() {
     }
 
-    public Customer(int id, String name) {
+    public Customer(int id) {
         this.id = id;
-        this.name = name;
+
 
     }
 
@@ -26,23 +20,11 @@ public class Customer {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-
-
 
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                         '}';
+                '}';
     }
 }

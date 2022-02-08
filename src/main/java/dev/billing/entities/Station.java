@@ -1,27 +1,21 @@
 package dev.billing.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Station {
-    private int id;
     private String name;
-    private Zone zone;
+    private List<Zone> zones;
 
 
     public Station() {
-            }
 
-    public Station(int id, String name) {
-        this.id = id;
+    }
+
+    public Station(String name) {
         this.name = name;
-
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -31,20 +25,19 @@ public class Station {
         this.name = name;
     }
 
-    public Zone getZone() {
-        return zone;
+    public List<Zone> getZones() {
+        return zones;
     }
 
-    public void setZone(Zone zone) {
-        this.zone = zone;
+    public void setZones(List<Zone> zones) {
+        this.zones = zones;
     }
 
     @Override
     public String toString() {
         return "Station{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", zone=" + zone +
+                "name='" + name + '\'' +
+                ", zones=" + zones +
                 '}';
     }
 }

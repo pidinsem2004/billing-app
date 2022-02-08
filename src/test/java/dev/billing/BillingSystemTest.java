@@ -43,14 +43,14 @@ public class BillingSystemTest {
 
     /**
      * Test case 1
-     * zone should have a name, otherwise throw exception
+     * zone should have an id, otherwise throw exception
      *
      * @throws RuntimeException
      */
     @Test
     public void theZoneNameIsNullOrEmptyThrowException() {
         exception.expect(RuntimeException.class);
-        Zone Zone = new Zone(5, "");
+        Zone Zone = new Zone();
         theZoneNameIsNullOrEmptyThrowExceptionImpl(Zone);
     }
 
@@ -61,21 +61,21 @@ public class BillingSystemTest {
      * @throws RuntimeException
      */
     public void theZoneNameIsNullOrEmptyThrowExceptionImpl(Zone zone) {
-        if (zone.getName() == "" || zone.getName() == null)
-            throw new RuntimeException("Ivalid zone name");
+        if (zone.getId()==0)
+            throw new RuntimeException("Ivalid zone id");
     }
 
     /**
      * Test case 2
-     * zone name is unique , otherwise throw exception
+     * zone id is unique , otherwise throw exception
      *
      * @throws RuntimeException
      */
     @Test
     public void theZoneNameIsNotUniqueThrowException() {
         exception.expect(RuntimeException.class);
-        Zone zone1 = new Zone(5, "zone1");
-        Zone zone2 = new Zone(6, "zone1");
+        Zone zone1 = new Zone(6);
+        Zone zone2 = new Zone(6);
         theZoneNameIsNotUniqueThrowExceptionImpl(zone1, zone2);
     }
 
@@ -86,7 +86,7 @@ public class BillingSystemTest {
      * @throws RuntimeException
      */
     public void theZoneNameIsNotUniqueThrowExceptionImpl(Zone zone1, Zone zone2) {
-        if (zone1.getName().equalsIgnoreCase(zone2.getName()))
+        if (zone1.getId() == zone2.getId())
             throw new RuntimeException("zone name must be unique");
     }
 
@@ -96,12 +96,12 @@ public class BillingSystemTest {
      *
      * @throws RuntimeException
      */
-    @Test
+    /*@Test
     public void zoneWithoutStationThrowException() {
         exception.expect(RuntimeException.class);
         Zone zone1 = new Zone(5, "zone1");
         zoneWithoutStationThrowExceptionImpl(zone1);
-    }
+    }*/
 
     /**
      * Implementation of the Test case 3
@@ -109,10 +109,10 @@ public class BillingSystemTest {
      *
      * @throws RuntimeException
      */
-    public void zoneWithoutStationThrowExceptionImpl(Zone zone) {
+   /* public void zoneWithoutStationThrowExceptionImpl(Zone zone) {
         if (zone.getStations() == null || zone.getStations().size() == 0)
             throw new RuntimeException("zone must contains station");
-    }
+    }*/
 
     /**
      * Test case 4
